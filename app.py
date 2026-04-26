@@ -1,9 +1,17 @@
+import os
 import re
 import streamlit as st
 from pdfplumber import PDF
 import cohere
+from dotenv import load_dotenv
 
-COHERE_API_KEY = "PjwC4oW9BdtsP56PBwE60whYVflKAfFuq5sLDzgj"
+load_dotenv()
+
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+if not COHERE_API_KEY:
+    st.error("COHERE_API_KEY is not set. Copy .env.example to .env and add your key.")
+    st.stop()
+
 co = cohere.Client(COHERE_API_KEY)
 
 # Custom CSS to style Streamlit components
